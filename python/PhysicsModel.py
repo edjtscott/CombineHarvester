@@ -231,6 +231,14 @@ class HiggsMassRangeModel(PhysicsModelBase_NiceSubclasses):
             else:
                 print 'MH (not there before) will be assumed to be', self.options.mass
                 self.modelBuilder.doVar("MH[%g]" % self.options.mass)
+        #ED FIXME 
+        if self.modelBuilder.out.var("GH"):
+            self.modelBuilder.out.var("GH").setConstant(False)
+            self.modelBuilder.out.var("GH").setRange(0., 5.)
+            poiNames += [ 'GH' ]
+        else:
+            self.modelBuilder.doVar("GH[0.004,0.,5.]")
+            poiNames += [ 'GH' ]
         return poiNames
 
 class MultiSignalModel(MultiSignalModelBase, HiggsMassRangeModel):
